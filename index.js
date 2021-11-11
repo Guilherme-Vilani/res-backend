@@ -1,17 +1,9 @@
-require('dotenv').config();
+var express = require('express')
+var path = require('path')
+var serveStatic = require('serve-static')
 
-const express = require('express');
-const app = express();
-
-const mongoose = require('mongoose');
-
-app.use(express.json());
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+var app = express()
+app.use(serveStatic(path.join(__dirname, 'dist')))
 
 mongoose.connect(process.env.DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true });
 
